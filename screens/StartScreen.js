@@ -3,22 +3,26 @@ import { View, TextInput, StyleSheet, Alert } from "react-native";
 
 import PrimaryButton from "../commponents/PrimaryButton/PrimaryButton";
 
-const StartScreen = () => {
+import Colors from "../commponents/constants/colors";
+
+const StartScreen = ({ setNumber }) => {
 
     const [gussedNumber, setGussedNumber] = useState("");
     const handleInput = (e) => {
         setGussedNumber(e);
         // console.log(parseInt(e));
     };
-    const handleInputButton = () => {
-        setGussedNumber(null);
+    const handleInputButtonReset = () => {
+        setGussedNumber("");
 
     };
 
     const handleInputButtonConfirm = () => {
-        if (parseInt(gussedNumber) <= 0) {
+        const checkNumber = parseInt(gussedNumber);
+
+        if ((checkNumber <= 0 || gussedNumber.length === 0) || isNaN(checkNumber)) {
             Alert.alert(
-                "Alert",
+                "Invalid!",
                 "Choose an number greater than 0",
                 [
                     // {
@@ -26,19 +30,20 @@ const StartScreen = () => {
                     //     // onPress: () => console.log("Cancel Pressed"),
                     //     style: "cancel"
                     // },
-                    { text: "OK", onPress: () => console.log("OK Pressed") }
+                    { text: "OK", onPress: handleInputButtonReset, style: "destructive" }
                 ]
             );
-        } else {
-            console.log(parseInt(gussedNumber))
+            return;
         }
+        setNumber(checkNumber);
+
     }
     return (
         <View style={styles.inputContainer}>
             <TextInput style={styles.numberInput} maxLength={2} value={gussedNumber} onChangeText={handleInput} keyboardType="number-pad" />
             <View style={styles.buttonsContainer}>
                 <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={handleInputButton}>Reset</PrimaryButton>
+                    <PrimaryButton onPress={handleInputButtonReset}>Reset</PrimaryButton>
                 </View>
                 <View style={styles.buttonContainer}>
                     <PrimaryButton onPress={handleInputButtonConfirm}>Confirm</PrimaryButton>
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         marginHorizontal: 24,
         padding: 16,
-        backgroundColor: "#3b021f",
+        backgroundColor: Colors.palm800,
         borderRadius: 8,
         elevation: 4,
         shadowColor: "black",
@@ -70,9 +75,9 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         fontSize: 32,
-        borderBottomColor: "#ddb52f",
+        borderBottomColor: Colors.yellow600,
         borderBottomWidth: 2,
-        color: "#ddb52f",
+        color: Colors.yellow600,
         fontWeight: "bold",
         marginVertical: 8,
         textAlign: "center",
