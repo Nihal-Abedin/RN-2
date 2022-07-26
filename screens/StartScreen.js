@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Alert } from "react-native";
+import { View, TextInput, StyleSheet, Alert, Text } from "react-native";
 
 import PrimaryButton from "../commponents/PrimaryButton/PrimaryButton";
 
 import Colors from "../commponents/constants/colors";
+import Title from "../commponents/Title/Title";
+import Card from "../commponents/Card/Card";
+import InstructionText from "../commponents/InstructionText/InstructionText";
 
 const StartScreen = ({ setNumber }) => {
 
@@ -39,37 +42,31 @@ const StartScreen = ({ setNumber }) => {
 
     }
     return (
-        <View style={styles.inputContainer}>
-            <TextInput style={styles.numberInput} maxLength={2} value={gussedNumber} onChangeText={handleInput} keyboardType="number-pad" />
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={handleInputButtonReset}>Reset</PrimaryButton>
+        <View style={styles.rootContainer}>
+            <Title>Guess My Number</Title>
+            <Card>
+                <InstructionText styles={styles.heading}>Enter a number</InstructionText>
+                <TextInput style={styles.numberInput} maxLength={2} value={gussedNumber} onChangeText={handleInput} keyboardType="number-pad" />
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={handleInputButtonReset}>Reset</PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={handleInputButtonConfirm}>Confirm</PrimaryButton>
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={handleInputButtonConfirm}>Confirm</PrimaryButton>
-                </View>
-            </View>
+            </Card>
         </View>
     );
 };
 const styles = StyleSheet.create({
-    inputContainer: {
-        // flex: 1,
-        marginTop: 100,
-        marginHorizontal: 24,
-        padding: 16,
-        backgroundColor: Colors.palm800,
-        borderRadius: 8,
-        elevation: 4,
-        shadowColor: "black",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowRadius: 6,
-        shadowOpacity: 0.25,
-        // alignItems: "center"
-        alignItems: "center"
+    rootContainer: {
+        flex: 1,
+        alignItems: "center",
+        marginTop: 60
+    }, heading: {
+        color: Colors.yellow600,
+        fontSize: 24
     },
     numberInput: {
         height: 50,

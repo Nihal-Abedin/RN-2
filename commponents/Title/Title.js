@@ -11,11 +11,12 @@ export default Title;
 const styles = StyleSheet.create({
     title: {
         fontSize: 24,
-        color: Colors.yellow600,
+        color: "#fff",
         fontWeight: "bold",
         textAlign: "center",
         padding: 12,
         borderWidth: 2,
-        borderColor: Colors.yellow600,
+        borderColor: "#fff",
+        borderRadius: 8
     }
 });

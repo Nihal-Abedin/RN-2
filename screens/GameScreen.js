@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import NumberContainer from "../commponents/NumberContainer/NumberContainer";
 import PrimaryButton from "../commponents/PrimaryButton/PrimaryButton";
 import Title from "../commponents/Title/Title";
+import { Ionicons } from "@expo/vector-icons"
+import Card from "../commponents/Card/Card";
+import InstructionText from "../commponents/InstructionText/InstructionText";
 
 
 const generateRnadomNumber = (min, max, exclude) => {
@@ -47,16 +50,23 @@ const GameScreen = ({ userNumber, onGameOver }) => {
     };
     return (
         <View style={styles.screen}>
-            <Title>Opponet's Guess</Title>
+            <Title>Opponent's Guess</Title>
             <NumberContainer>{gussedNumber}</NumberContainer>
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={handleGuess.bind(this, "higger")} >High</PrimaryButton>
+            <Card>
+                <InstructionText styles={styles.insTxt}>Higher or Lower?</InstructionText>
+                <View style={styles.buttonsContainer}>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={handleGuess.bind(this, "higger")} >
+                            <Ionicons name="md-add" color="#fff" size={24} />
+                        </PrimaryButton>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton onPress={handleGuess.bind(this, "lower")} >
+                            <Ionicons name="md-remove" color="#fff" size={24} />
+                        </PrimaryButton>
+                    </View>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton onPress={handleGuess.bind(this, "lower")} >Low</PrimaryButton>
-                </View>
-            </View>
+            </Card>
         </View>
     );
 };
@@ -74,6 +84,10 @@ const styles = StyleSheet.create({
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center"
+    },
+    insTxt: {
+        marginBottom: 12,
+        // padding: 24
     }
 })
 export default GameScreen;
